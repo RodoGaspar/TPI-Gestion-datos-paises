@@ -1,0 +1,45 @@
+nombre,poblacion,superficie,continente
+Argentina,45376763,2780400,América
+Brasil,213993437,8515767,América
+Chile,19458310,756102,América
+Colombia,51049498,1141748,América
+México,128932753,1964375,América
+Uruguay,3473730,176215,América
+Perú,33359418,1285216,América
+Venezuela,28435943,916445,América
+Bolivia,12079472,1098581,América
+Paraguay,7353038,406752,América
+Alemania,83149300,357022,Europa
+Francia,68042591,551695,Europa
+España,47431256,505990,Europa
+Italia,59554023,301340,Europa
+Portugal,10347892,92212,Europa
+Polonia,37840001,312679,Europa
+Países Bajos,17590672,41543,Europa
+Suecia,10521556,450295,Europa
+Noruega,5408320,385207,Europa
+Grecia,10678632,131957,Europa
+China,1412600000,9596960,Asia
+India,1380004385,3287263,Asia
+Japón,125800000,377975,Asia
+Indonesia,273523615,1904569,Asia
+Pakistán,220892340,881913,Asia
+Bangladesh,164689383,147570,Asia
+Rusia,145912025,17098242,Asia
+Corea del Sur,51744876,100210,Asia
+Arabia Saudita,34813871,2149690,Asia
+Vietnam,97338579,331212,Asia
+Nigeria,206139589,923768,África
+Etiopía,114963588,1104300,África
+Egipto,102334404,1001449,África
+Tanzania,59734218,945087,África
+Kenia,53771296,580367,África
+Sudáfrica,59308690,1219090,África
+Ghana,31072940,238533,África
+Marruecos,36910560,710850,África
+Mozambique,32163047,801590,África
+Uganda,45741007,241550,África
+Estados Unidos,331002651,9372610,América del Norte
+Canadá,38005238,9984670,América del Norte
+Australia,25499884,7692024,Oceanía
+Nueva Zelanda,5084300,270467,Oceanía
