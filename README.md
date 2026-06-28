@@ -71,22 +71,21 @@ Ingresa el nombre del país o parte de el: arg
 ```
  --- ESTADÍSTICAS ---
 
-  Total de países: 45
+  Total de países: 44
 
   POBLACIÓN
 Mayor: China (1,412,600,000 hab.)
-Menor: Kyrgistan (5 hab.)
-Promedio: 132,069,491 hab.
+Menor: Uruguay (3,473,730 hab.)
+Promedio: 135,071,070 hab.
 
   SUPERFICIE
 Mayor: Rusia (17,098,242 km²)
-Menor: Kyrgistan (6 km²)
-Promedio: 2,069,633 km²
+Menor: Países Bajos (41,543 km²)
+Promedio: 2,116,670 km²
 
   PAÍSES POR CONTINENTE
 América: 10
 América del Norte: 2
-Antartida: 1
 Asia: 10
 Europa: 10
 Oceanía: 2
@@ -94,9 +93,12 @@ Oceanía: 2
 
 ```
 
+## Integrante
 
-## Integrantes
+Rodolfo Gaspar Paredes - Desarrollo y documentación
 
 ## Links
+
+[próximamente]
 
 
