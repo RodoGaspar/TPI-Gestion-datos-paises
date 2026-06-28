@@ -151,17 +151,17 @@ def filtrar_paises(paises: list) -> None:
         print("[ERROR] Opción no válida.")
 
 def _filtrar_por_continente(paises):
-    continente = pedir_texto("Ingrese el continente").lower()
+    continente = pedir_texto("Ingrese el continente: ").lower()
     resultados = []
     for p in paises:
         if continente == p["continente"].lower():
             resultados.append(p)
-    _mostrar_resultado(resultados, f"continente '{continente.title()}'")
+    mostrar_resultado(resultados, f"continente '{continente.title()}'")
 
 def _filtrar_por_rango(paises: list, campo: str, unidad: str) -> None:
     print(f"Ingrese el rango de {campo} en {unidad}")
     minimo = pedir_entero(" Minimo: ", minimo = 0)
-    maximo = pedir_entero(" Máximo", minimo = 0)
+    maximo = pedir_entero(" Máximo: ", minimo = 0)
     if minimo > maximo:
         print("[ERROR] El mínimo no puede ser mayor que el máximo.")
         return
@@ -169,7 +169,7 @@ def _filtrar_por_rango(paises: list, campo: str, unidad: str) -> None:
     for p in paises:
         if minimo <= p[campo] <= maximo:
             resultados.append(p)
-    _mostrar_resultado(resultados, f"{campo} entre {minimo:,} y {maximo:,} {unidad}")
+    mostrar_resultado(resultados, f"{campo} entre {minimo:,} y {maximo:,} {unidad}")
 
 #---- ORDENAMIENTOS ----
 
@@ -199,10 +199,48 @@ def ordenar_paises(paises: list) -> None:
     ordenados = sorted(paises, key=obtener_valor, reverse=descendente)
     orden_texto = "descendente" if descendente else "ascendente"
     print(f"\nPaíses ordenados por {campo} ({orden_texto}):")
-    _mostrar_tabla(ordenados)
+    mostrar_tabla(ordenados)
 
-#---- ORDENAMIENTOS ----
+#---- ESTADÍSTICAS ----
 
+def mostrar_estadisticas(paises: list) -> None:
+    """Calcula y muestra estadísticas del dataset."""
+    print("\n --- ESTADÍSTICAS ---")
+    if not paises:
+        print("[INFO] No hay países cargados.")
+        return
+    
+    # Población
+    max_pob = max(paises, key=lambda p: p["poblacion"])
+    min_pob = min(paises, key=lambda p: p["poblacion"])
+    prom_pob = sum(p["poblacion"] for p in paises) / len(paises)
+
+    # Superficie
+    max_sup = max(paises, key=lambda p: p["superficie"])
+    min_sup = min(paises, key=lambda p: p["superficie"])
+    prom_sup = sum(p["superficie"] for p in paises) / len(paises)
+
+    # Países por continente
+    continentes: dict = {}
+    for p in paises:
+        cont = p["continente"]
+        continentes[cont] = continentes.get(cont, 0) + 1
+
+    print(f"\n  Total de países: {len(paises)}")
+    print(f"\n  POBLACIÓN")
+    print(f"Mayor: {max_pob['nombre']} ({max_pob['poblacion']:,} hab.)")
+    print(f"Menor: {min_pob['nombre']} ({min_pob['poblacion']:,} hab.)")
+    print(f"Promedio: {prom_pob:,.0f} hab.")
+ 
+    print(f"\n  SUPERFICIE")
+    print(f"Mayor: {max_sup['nombre']} ({max_sup['superficie']:,} km²)")
+    print(f"Menor: {min_sup['nombre']} ({min_sup['superficie']:,} km²)")
+    print(f"Promedio: {prom_sup:,.0f} km²")
+ 
+    print(f"\n  PAÍSES POR CONTINENTE")
+    for cont, cantidad in sorted(continentes.items()):
+        print(f"{cont}: {cantidad}")
+    
 
 #---------------------------------------------------------
 #       FUNCIONES DE PRESENTACIÓN
@@ -214,3 +252,80 @@ def buscar_exacto(paises: list, nombre: str) -> None:
         if p["nombre"].lower() == nombre.lower():
             return p
     return None
+
+
+def mostrar_tabla(paises: list) -> None:
+    """Imprime una tabla formateada de países."""
+    if not paises:
+        print("[INFO] Lista vacía.")
+        return
+    ancho = 28
+    sep = f"+{'-'*ancho}+{'-'*16}+{'-'*16}+{'-'*14}+"
+    print(sep)
+    print(f"| {'Nombre':<{ancho-2}} | {'Población':>14} | {'Superficie':>14} | {'Continente':<12} |")
+    print(sep)
+    for p in paises:
+        print(f"| {p['nombre']:<{ancho-2}} | {p['poblacion']:>14,} | {p['superficie']:>14,} | {p['continente']:<12} |")
+    print(sep)
+
+
+def mostrar_resultado(resultados: list, descripcion: str) -> None:
+    if not resultados:
+        print(f"[INFO] No se encontraron países para {descripcion}.")
+    else:
+        print(f"\n{len(resultados)} país/es encontrado(s) para {descripcion}:")
+        mostrar_tabla(resultados)
+
+#---------------------------------------------------------
+#       MENÚ PRINCIPAL
+#---------------------------------------------------------
+
+
+def mostrar_menu() -> None:
+    print("\n" + "="*42)
+    print("   GESTIÓN DE DATOS DE PAÍSES - UTN TPI")
+    print("="*42)
+    print(" 1. Agregar país")
+    print(" 2. Actualizar población/superficie")
+    print(" 3. Buscar país por nombre")
+    print(" 4. Filtrar países")
+    print(" 5. Ordenar países")
+    print(" 6. Mostrar estadísticas")
+    print(" 7. Listar todos los países")
+    print(" 0. Salir (guarda automáticamente)")
+    print("="*42)
+ 
+ 
+def main() -> None:
+    paises = cargar_paises(ARCHIVO_CSV)
+    print(f"[OK] Dataset cargado: {len(paises)} país/es.")
+ 
+    while True:
+        mostrar_menu()
+        opcion = input("Elegí una opción: ").strip()
+ 
+        if opcion == "1":
+            agregar_pais(paises)
+        elif opcion == "2":
+            actualizar_pais(paises)
+        elif opcion == "3":
+            buscar_pais(paises)
+        elif opcion == "4":
+            filtrar_paises(paises)
+        elif opcion == "5":
+            ordenar_paises(paises)
+        elif opcion == "6":
+            mostrar_estadisticas(paises)
+        elif opcion == "7":
+            print("\n── TODOS LOS PAÍSES ──")
+            mostrar_tabla(paises)
+        elif opcion == "0":
+            guardar_paises(paises, ARCHIVO_CSV)
+            print("[OK] Datos guardados. ¡Hasta luego!")
+            break
+        else:
+            print("[ERROR] Opción no válida. Ingresá un número del menú.")
+ 
+ 
+if __name__ == "__main__":
+    main()
