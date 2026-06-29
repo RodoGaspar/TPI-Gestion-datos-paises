@@ -99,6 +99,6 @@ Rodolfo Gaspar Paredes - Desarrollo y documentación
 
 ## Links
 
-[próximamente]
+Enlace al video explicativo: https://youtu.be/OHZq47HXOGU
 
 
